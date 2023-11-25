@@ -4,16 +4,19 @@
 #include "tree.h"
 using namespace std;
 
+//конструктор
 binTree::binTree(){
     root = nullptr;
 }
 
+//вставка элемента
 void binTree::insert(int data){
-    if(!root){
+    if(!root){  //первый элемент
         root = new node{data, nullptr, nullptr};
         return;
     }
 
+    //поиск нужного места вставки
     node *curr = root, *prev;
     while(curr){
         prev = curr;
@@ -21,7 +24,7 @@ void binTree::insert(int data){
             curr = curr->right;
         } else if(curr->data > data) {
             curr = curr->left;
-        } else return;
+        } else return;  
     }
 
     if(prev->data < data) {
@@ -31,6 +34,7 @@ void binTree::insert(int data){
     }
 }
 
+//удаление элемента
 bool binTree::deleteNode(int data){
     node *search = preOrderSearch(data); //поиск элемента в дереве
     if(!search || !root) return false;   //элемента в дереве нет
@@ -111,9 +115,12 @@ bool binTree::deleteNode(int data){
     return true;
 }
 
+//рекурсивный поиск начиная с узла
 node* binTree::searchFromNode(node* Node, int data){
-    if(!Node || Node->data == data) return Node;
+    //закончить есть прошли дерево или нашли
+    if(!Node || Node->data == data) return Node;    
 
+    //рукурсивный поиск
     node *left, *right;
     left = searchFromNode(Node->left, data);
     right = searchFromNode(Node->right, data);
@@ -128,18 +135,21 @@ node* binTree::searchFromNode(node* Node, int data){
 
 //preorder(прямой обход)
 node* binTree::preOrderSearch(int data){
-    return searchFromNode(root, data);
+    return searchFromNode(root, data);  //по умолчанию с корня
 }
 
+//печать дерева
 void binTree::print(){
+    //дерево пусто
     if(!root){
         cerr << "tree is empty\n";
         return;
     } else printf("Tree:\nNodes: %d\tHigh: %d\n", nodesQuantity(), high());
-    printFromNode(root, 0);
+    printFromNode(root, 0); //по умолчанию с корня
     cout << "\n";
 }
 
+//рекурсивная печать начиная с узла
 void binTree::printFromNode(node* Node, int level){
     if(Node){
        if(Node->right) printFromNode(Node->right, level + 1);
@@ -150,30 +160,36 @@ void binTree::printFromNode(node* Node, int level){
     }
 }
 
+//количество узлов
 int binTree::nodesQuantity(){
     return nodesQuantityFromNode(root);
 }
 
+//рекурсивный подсчет узлов-потомков
 int binTree::nodesQuantityFromNode(node* Node){
     if(!Node) return 0;
     return 1 + nodesQuantityFromNode(Node->left) + nodesQuantityFromNode(Node->right);
 }
 
+//высота дерева
 int binTree::high(){
     return highFromNode(root) - 1;
 }
 
+//рекурсивный подсчет высоты
 int binTree::highFromNode(node* Node){
     if(!Node) return 0;
     return 1 + max(highFromNode(Node->left), highFromNode(Node->right));
 }
 
+//мапа: {четный ключ: длина пути от корня}
 map<int, int>* binTree::getEvenLevels(){
     map<int, int>* evenLevels = new map<int, int>;
     getEvenLevelsFromNode(root, 0, *evenLevels);
     return evenLevels;
 }
 
+//рекурсивное заполнение мапы
 void binTree::getEvenLevelsFromNode(node* Node, int level, map<int, int> &evenLevels){
     if(!Node) return;
 
@@ -182,6 +198,7 @@ void binTree::getEvenLevelsFromNode(node* Node, int level, map<int, int> &evenLe
     getEvenLevelsFromNode(Node->right, level+1, evenLevels);
 }
 
+//печать мапы
 void binTree::printLevelMap(map<int, int>* evenLevels){
     cout << "evenLevels:\n[";
     for(auto it = evenLevels->begin(); it != evenLevels->end(); it++){
