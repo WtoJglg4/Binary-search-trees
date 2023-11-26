@@ -204,5 +204,5 @@ void binTree::printLevelMap(map<int, int>* evenLevels){
     for(auto it = evenLevels->begin(); it != evenLevels->end(); it++){
         printf("{%d, %d} ", it->first, it->second);
     }    
-    cout << "]\n";
+    cout << "]\n\n";
 }

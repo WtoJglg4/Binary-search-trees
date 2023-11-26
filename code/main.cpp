@@ -17,35 +17,33 @@ int main(){
     tree.insert(12);
     tree.insert(13);
     tree.insert(14);
+    tree.insert(7);
     tree.print();
     map<int, int>* evenLevels = tree.getEvenLevels();
     tree.printLevelMap(evenLevels);
 
     node* Node = tree.preOrderSearch(30);
+    if(Node) {
+        cout << 30 << " in tree\n" << endl;
+    } else cout << 30 << " not in tree\n" << endl;
+    
+    Node = tree.preOrderSearch(100);
+    if(Node) {
+        cout << 100 << " in tree\n" << endl;
+    } else cout << 100 << " not in tree\n" << endl;
 
-    tree.insert(7);
+    bool deleted = tree.deleteNode(10);
+    if(deleted) cout << "Deleted: " << 10 << endl;
     tree.print();
-   
-    tree.deleteNode(10);
+
+    deleted = tree.deleteNode(6);
+    if(deleted) cout << "Deleted: " << 6 << endl;
     tree.print();
-    tree.deleteNode(6);
-    tree.print();
-    tree.deleteNode(1);
-    tree.print();
-    tree.deleteNode(8);
-    tree.print();
-    tree.deleteNode(25);
-    tree.print();
-    tree.deleteNode(30);
-    tree.print();
-    tree.deleteNode(20);
-    tree.print();
-    tree.deleteNode(12);
-    tree.print();
-    tree.deleteNode(7);
+
+    deleted = tree.deleteNode(25);
+    if(deleted) cout << "Deleted: " << 25 << endl;
     tree.print();
     
-
     char a;
     cin >> a;
 }
