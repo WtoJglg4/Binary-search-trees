@@ -18,6 +18,10 @@ class binTree{
         int highFromNode(node* node);               //рекурсивный подсчет высоты
         node* searchFromNode(node* node, int data); //рекурсивный поиск начиная с узла
 
+        void inOrderFromNode(node* node);      
+        void preOrderFromNode(node* node);   
+        void postOrderFromNode(node* node);   
+
     public:
         node* root; //корень
 
@@ -28,7 +32,11 @@ class binTree{
         int nodesQuantity();                            //количество узлов
         int high();                                     //высота дерева
         
-        node* preOrderSearch(int data);                 //прямой поиск по дереву
+        node* search(int data);                         //поиск по дереву
+
+        void inOrder();                                 //симметричный обход
+        void preOrder();                                //прямой обход
+        void postOrder();                               //обратный обход
         
         map<int, int>* getEvenLevels();                 //мапа: {четный ключ: длина пути от корня}
         

@@ -36,8 +36,8 @@ void binTree::insert(int data){
 
 //удаление элемента
 bool binTree::deleteNode(int data){
-    node *search = preOrderSearch(data); //поиск элемента в дереве
-    if(!search || !root) return false;   //элемента в дереве нет
+    node *find = search(data); //поиск элемента в дереве
+    if(!find || !root) return false;   //элемента в дереве нет
 
     node *curr = root, *prev;   //curr - элемент, который будем удалять, prev - перед ним
     while(curr){
@@ -134,7 +134,7 @@ node* binTree::searchFromNode(node* Node, int data){
 }
 
 //preorder(прямой обход)
-node* binTree::preOrderSearch(int data){
+node* binTree::search(int data){
     return searchFromNode(root, data);  //по умолчанию с корня
 }
 
@@ -206,3 +206,51 @@ void binTree::printLevelMap(map<int, int>* evenLevels){
     }    
     cout << "]\n\n";
 }
+
+
+//симметричный
+void binTree::inOrder(){
+    inOrderFromNode(root);
+    cout << endl;
+}
+
+
+void binTree::inOrderFromNode(node* Node){
+    if(!Node) return;
+    
+    inOrderFromNode(Node->left);
+    cout << Node->data << " ";
+    inOrderFromNode(Node->right);
+}
+
+//прямой
+void binTree::preOrder(){
+    preOrderFromNode(root);
+    cout << endl;
+}
+
+void binTree::preOrderFromNode(node* Node){
+    if(!Node) return;
+    
+    cout << Node->data << " ";
+    preOrderFromNode(Node->left);
+    preOrderFromNode(Node->right);
+}
+
+
+//обратный
+void binTree::postOrder(){
+    postOrderFromNode(root);
+    cout << endl;
+}
+
+void binTree::postOrderFromNode(node* Node){
+    if(!Node) return;
+    
+    postOrderFromNode(Node->left);
+    postOrderFromNode(Node->right);
+    cout << Node->data << " ";
+}
+
+
+

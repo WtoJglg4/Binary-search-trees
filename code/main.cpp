@@ -6,28 +6,26 @@ using namespace std;
 //g++ main.cpp tree.cpp -o output
 int main(){
     
+    int V[]{10, 6, 1, 8, 25, 30, 20, 12, 13, 14, 7};
     binTree tree;
-    tree.insert(10);
-    tree.insert(6);
-    tree.insert(1);
-    tree.insert(8);
-    tree.insert(25);
-    tree.insert(30);
-    tree.insert(20);
-    tree.insert(12);
-    tree.insert(13);
-    tree.insert(14);
-    tree.insert(7);
+
+    for(int i = 0; i < size(V); i++) tree.insert(V[i]);
     tree.print();
+
+    //обходы
+    tree.preOrder();
+    tree.inOrder();
+    tree.postOrder();
+
     map<int, int>* evenLevels = tree.getEvenLevels();
     tree.printLevelMap(evenLevels);
 
-    node* Node = tree.preOrderSearch(30);
+    node* Node = tree.search(30);
     if(Node) {
         cout << 30 << " in tree\n" << endl;
     } else cout << 30 << " not in tree\n" << endl;
     
-    Node = tree.preOrderSearch(100);
+    Node = tree.search(100);
     if(Node) {
         cout << 100 << " in tree\n" << endl;
     } else cout << 100 << " not in tree\n" << endl;
